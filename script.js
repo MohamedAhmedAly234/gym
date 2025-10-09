@@ -8,9 +8,13 @@ const plans = [
   { title: "Ladies Program", price: "EGP/1000 / month", description: "Customized workouts designed for women’s fitness goals." },
   { title: "Youth Program", price: "EGP/600 / month", description: "Fun and safe workouts tailored for teens and young adults." },
   { title: "Pro Athlete Program", price: "EGP/2500 / month", description: "Intense, professional-level training for serious athletes (Recommended for athletes)." },
-  { title: "Nutrition + Training Plan", price: "EGP/2000 / month", description: "Get a personal meal plan with training for faster results (Recommended for athletes)." },
+  { title: "Nutrition + Training Plan", price: "EGP/2000 / month", description: "Get a personal meal plan with training for faster results." },
   { title: "VIP Personal Program", price: "EGP/3000 / month", description: "1-on-1 coaching, private sessions, and exclusive facilities." },
-  { title: "Annual All-Inclusive", price: "EGP/6800/ year", description: "Unlimited access + save 20% with our annual plan." }
+  { title: "Annual All-Inclusive", price: "EGP/7000/ year", description: "Unlimited access + save 20% with our annual plan." },
+   // ✅ 3 Plans جديدة للعلاج الطبيعي
+  { title: "Basic Physiotherapy Plan", price: "EGP/900/ month", description: "Includes consultation and 1 weekly session." },
+  { title: "Advanced Physiotherapy Plan", price: "EGP/1500 / month", description: "Covers personalized recovery programs and 2 weekly sessions." },
+  { title: "Premium Physiotherapy Plan", price: "EGP/2000 / month", description: "Full rehabilitation support with unlimited sessions." },
 ];
 
 plans.sort((a, b) => {
@@ -18,8 +22,6 @@ plans.sort((a, b) => {
   const priceB = parseFloat(b.price.replace(/[^0-9.]/g, ''));
   return priceA - priceB;
 });
-
-
 let currentIndex = 0;
 const planContainer = document.getElementById("planContainer");
 const plansPerView = 3;

@@ -1,0 +1,47 @@
+nav {
+    margin: 10px;
+    margin-top: 0;
+    background-color: #878681;
+    box-shadow: 2px 4px 20px 0.9 #000000;
+}
+.navName:hover {
+    color: #ffffff;
+}
+.shadow {
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.9);
+}
+.hero {
+ background: linear-gradient(90deg, rgba(129,134,135,0.7), rgba(30,144,255,0.5)),
+ url('https://images.unsplash.com/photo-1579758629938-03607ccdbaba?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+ color: white;
+ text-align: center;
+ padding: 100px 20px;
+}
+.hero h1 {
+font-size: 2.8rem;
+font-weight: bold;
+}
+.buutonHero {
+    background-color: aqua;
+    border-radius: 15px;
+}
+.buutonHero:hover {
+    background-color: blue;
+    color: white;
+    border-radius: 15px;
+}
+:hover {
+    transition: 0.5s;
+}
+#transition:hover {
+    transform: translateY(-10px);
+}
+.featuresText {
+color: #000000;
+font-size: 2.8rem;
+font-weight: bold; 
+}
+.footer {
+    background-color: #878681;
+    margin: 10px;
+}

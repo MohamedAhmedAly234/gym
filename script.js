@@ -11,12 +11,10 @@ const plans = [
   { title: "Nutrition + Training Plan", price: "EGP/2000 / month", description: "Get a personal meal plan with training for faster results." },
   { title: "VIP Personal Program", price: "EGP/3000 / month", description: "1-on-1 coaching, private sessions, and exclusive facilities." },
   { title: "Annual All-Inclusive", price: "EGP/7000/ year", description: "Unlimited access + save 20% with our annual plan." },
-   // ✅ 3 Plans جديدة للعلاج الطبيعي
   { title: "Basic Physiotherapy Plan", price: "EGP/900/ month", description: "Includes consultation and 1 weekly session." },
   { title: "Advanced Physiotherapy Plan", price: "EGP/1500 / month", description: "Covers personalized recovery programs and 2 weekly sessions." },
   { title: "Premium Physiotherapy Plan", price: "EGP/2000 / month", description: "Full rehabilitation support with unlimited sessions." },
 ];
-
 plans.sort((a, b) => {
   const priceA = parseFloat(a.price.replace(/[^0-9.]/g, ''));
   const priceB = parseFloat(b.price.replace(/[^0-9.]/g, ''));
@@ -37,11 +35,11 @@ function renderPlans() {
     col.className = "col-md-4";
 
     col.innerHTML = `
-      <div class="p-4 bg-white rounded shadow h-100 d-flex flex-column">
+       <div id="transition" class="p-4 bg-green rounded shadow h-100 d-flex flex-column">
         <h3 class="fw-bold mb-2">${plan.title}</h3>
         <h4 class="text-primary mb-3">${plan.price}</h4>
         <p class="text-muted flex-grow-1">${plan.description}</p>
-        <button class="btn btn-primary mt-3">Join Now</button>
+           <a href="#checkout"<button class="btn btn-primary mt-3">Join Now</button><a/>
       </div>
     `;
     planContainer.appendChild(col);
@@ -61,3 +59,35 @@ document.getElementById("nextPlan").addEventListener("click", () => {
 
 // Initial Render
 renderPlans();
+
+// Counter Animation
+  const counters = document.querySelectorAll('.counter');
+  const speed = 50;
+  const animateCounters = () => {
+    counters.forEach(counter => {
+      const target = +counter.getAttribute('data-target');
+      const updateCount = () => {
+        const current = +counter.innerText;
+        const increment = Math.ceil(target/speed);
+
+        if (current < target) {
+          counter.innerText = current + increment;
+          setTimeout(updateCount, 30);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      updateCount();
+    });
+  };
+
+  let started = false;
+  window.addEventListener('scroll', () => {
+    const section = document.getElementById('achievements');
+    const sectionTop = section.getBoundingClientRect().top;
+    const triggerPoint = window.innerHeight - 100;
+    if (sectionTop < triggerPoint && !started) {
+      animateCounters();
+      started = true;
+    }
+  });

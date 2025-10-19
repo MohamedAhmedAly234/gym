@@ -1,3 +1,46 @@
+ const trainers = [
+    { name: "Captain Ahmed Salah", experience: "10 Years of Experience", clients: 250, success: 180 },
+    { name: "Coach Sara Youssef", experience: "7 Years of Experience", clients: 190, success: 150 },
+    { name: "Captain Mohamed Tarek", experience: "12 Years of Experience", clients: 320, success: 270 },
+    { name: "Coach Nour Adel", experience: "8 Years of Experience", clients: 210, success: 160 },
+    { name: "Captain Omar Khaled", experience: "6 Years of Experience", clients: 170, success: 130 }
+  ];
+
+  let currentTrainer = 0;
+
+  const trainerContainer = document.getElementById("trainerContainer");
+  const trainerName = document.getElementById("trainerName");
+  const trainerExperience = document.getElementById("trainerExperience");
+  const trainerClients = document.getElementById("trainerClients");
+  const trainerSuccess = document.getElementById("trainerSuccess");
+
+  function showTrainer(index) {
+    const t = trainers[index];
+    trainerName.textContent = t.name;
+    trainerExperience.textContent = t.experience;
+    trainerClients.textContent = t.clients;
+    trainerSuccess.textContent = t.success;
+  }
+
+  function cycleTrainers() {
+    trainerContainer.classList.remove("fade-in");
+    trainerContainer.classList.add("fade-out");
+
+    setTimeout(() => {
+      currentTrainer = (currentTrainer + 1) % trainers.length;
+      showTrainer(currentTrainer);
+      trainerContainer.classList.remove("fade-out");
+      trainerContainer.classList.add("fade-in");
+    }, 500);
+  }
+
+  // عرض أول مدرب
+  showTrainer(currentTrainer);
+
+  // التبديل كل 10 ثوانٍ
+  setInterval(cycleTrainers, 10000);
+
+
 // ==========================
 // PLAN DATA (Updated Types)
 // ==========================
@@ -15,14 +58,18 @@ const plans = [
   { title: "Advanced Physiotherapy Plan", price: "EGP/1500 / month", description: "Covers personalized recovery programs and 2 weekly sessions." },
   { title: "Premium Physiotherapy Plan", price: "EGP/2000 / month", description: "Full rehabilitation support with unlimited sessions." },
 ];
+
+// Sort by price ascending
 plans.sort((a, b) => {
   const priceA = parseFloat(a.price.replace(/[^0-9.]/g, ''));
   const priceB = parseFloat(b.price.replace(/[^0-9.]/g, ''));
   return priceA - priceB;
 });
+
 let currentIndex = 0;
 const planContainer = document.getElementById("planContainer");
 const plansPerView = 3;
+
 // Render Function
 function renderPlans() {
   planContainer.innerHTML = "";
@@ -35,11 +82,11 @@ function renderPlans() {
     col.className = "col-md-4";
 
     col.innerHTML = `
-       <div id="transition" class="p-4 bg-green rounded shadow h-100 d-flex flex-column">
-        <h3 class="fw-bold mb-2">${plan.title}</h3>
-        <h4 class="text-primary mb-3">${plan.price}</h4>
+      <div id="transition" class="p-4 bg-green rounded shadow h-100 d-flex flex-column">
+        <h2 class="fw-bold mb-2">${plan.title}</h2>
+        <h4 class="pricePlan mb-3">${plan.price}</h4>
         <p class="text-muted flex-grow-1">${plan.description}</p>
-           <a href="#checkout"<button class="btn btn-primary mt-3">Join Now</button><a/>
+       <a href="plans.html?id=${planIndex}" class="btn btn-primary mt-3">Join Now</a>
       </div>
     `;
     planContainer.appendChild(col);
@@ -90,4 +137,20 @@ renderPlans();
       animateCounters();
       started = true;
     }
+  });
+    // Hide The Button
+     const backToTopBtn = document.getElementById("backToTopBtn");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 600) { 
+      backToTopBtn.style.display = "flex";
+    } else {
+      backToTopBtn.style.display = "none";
+    }
+  });
+
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
   });

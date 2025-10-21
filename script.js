@@ -1,44 +1,70 @@
- const trainers = [
-    { name: "Captain Ahmed Salah", experience: "10 Years of Experience", clients: 250, success: 180 },
-    { name: "Coach Sara Youssef", experience: "7 Years of Experience", clients: 190, success: 150 },
-    { name: "Captain Mohamed Tarek", experience: "12 Years of Experience", clients: 320, success: 270 },
-    { name: "Coach Nour Adel", experience: "8 Years of Experience", clients: 210, success: 160 },
-    { name: "Captain Omar Khaled", experience: "6 Years of Experience", clients: 170, success: 130 }
-  ];
-
-  let currentTrainer = 0;
-
-  const trainerContainer = document.getElementById("trainerContainer");
-  const trainerName = document.getElementById("trainerName");
-  const trainerExperience = document.getElementById("trainerExperience");
-  const trainerClients = document.getElementById("trainerClients");
-  const trainerSuccess = document.getElementById("trainerSuccess");
-
-  function showTrainer(index) {
-    const t = trainers[index];
-    trainerName.textContent = t.name;
-    trainerExperience.textContent = t.experience;
-    trainerClients.textContent = t.clients;
-    trainerSuccess.textContent = t.success;
+// ==========================
+// TRAINERS DATA
+// ==========================
+const trainers = [
+  {
+    name: "Ahmed Samir",
+    experience: 8,
+    clientsWorked: 250,
+    clientsSucceeded: 200,
+    img: "https://images.pexels.com/photos/3912516/pexels-photo-3912516.jpeg"
+  },
+  {
+    name: "Mohamed Ali",
+    experience: 6,
+    clientsWorked: 180,
+    clientsSucceeded: 150,
+    img: "https://images.pexels.com/photos/17898148/pexels-photo-17898148.jpeg"
+  },
+  {
+    name: "Yasser Aly",
+    experience: 5,
+    clientsWorked: 200,
+    clientsSucceeded: 170,
+    img: "https://images.pexels.com/photos/9283300/pexels-photo-9283300.jpeg"
+  },
+  {
+    name: "Laila Tarek",
+    experience: 7,
+    clientsWorked: 220,
+    clientsSucceeded: 190,
+    img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    name: "Omar Khaled",
+    experience: 10,
+    clientsWorked: 300,
+    clientsSucceeded: 260,
+    img: "https://images.pexels.com/photos/3912953/pexels-photo-3912953.jpeg"
   }
+];
 
-  function cycleTrainers() {
-    trainerContainer.classList.remove("fade-in");
-    trainerContainer.classList.add("fade-out");
+let currentTrainer = 0;
+const trainerCard = document.getElementById("trainerCard");
 
-    setTimeout(() => {
-      currentTrainer = (currentTrainer + 1) % trainers.length;
-      showTrainer(currentTrainer);
-      trainerContainer.classList.remove("fade-out");
-      trainerContainer.classList.add("fade-in");
-    }, 500);
-  }
+// Render Trainer
+function renderTrainer() {
+  const t = trainers[currentTrainer];
+  trainerCard.classList.add("fade");
 
-  // عرض أول مدرب
-  showTrainer(currentTrainer);
+  setTimeout(() => {
+    trainerCard.innerHTML = `
+      <img src="${t.img}" alt="${t.name}">
+      <h4 class="fw-bold">${t.name}</h4>
+      <p> Experience: <strong>${t.experience} years</strong></p>
+      <p> Clients Worked With: <strong>${t.clientsWorked}</strong></p>
+      <p> Successful Transformations: <strong>${t.clientsSucceeded}</strong></p>
+    `;
+    trainerCard.classList.remove("fade");
+  }, 500);
+}
 
-  // التبديل كل 10 ثوانٍ
-  setInterval(cycleTrainers, 10000);
+// Auto Switch Trainers
+renderTrainer();
+setInterval(() => {
+  currentTrainer = (currentTrainer + 1) % trainers.length;
+  renderTrainer();
+}, 7000);
 
 
 // ==========================
@@ -82,16 +108,20 @@ function renderPlans() {
     col.className = "col-md-4";
 
     col.innerHTML = `
-      <div id="transition" class="p-4 bg-green rounded shadow h-100 d-flex flex-column">
+      <div id="transition" class="plan-item p-4 shadow h-100">
         <h2 class="fw-bold mb-2">${plan.title}</h2>
         <h4 class="pricePlan mb-3">${plan.price}</h4>
-        <p class="text-muted flex-grow-1">${plan.description}</p>
-       <a href="plans.html?id=${planIndex}" class="btn btn-primary mt-3">Join Now</a>
+        <p class="text-white flex-grow-1">${plan.description}</p>
+        <a href="plans.html?id=${planIndex}" class="btn btn-warning mt-3 btn-gold fw-bold">Join Now</a>
       </div>
     `;
     planContainer.appendChild(col);
   }
 }
+
+// Initial render
+renderPlans();
+
 
 // Event Listeners
 document.getElementById("prevPlan").addEventListener("click", () => {
@@ -138,6 +168,33 @@ renderPlans();
       started = true;
     }
   });
+  const sliderImages = [
+  "https://images.unsplash.com/photo-1558611848-73f7eb4001a1?auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1593079831268-3381b0db4a77?auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1579758629938-03607ccdbaba?auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=800&q=6"
+];
+
+let currentImageIndex = 0;
+const sliderImage = document.getElementById("sliderImage");
+
+function changeImage() {
+  // Fade out
+  sliderImage.style.opacity = 0;
+
+  setTimeout(() => {
+    currentImageIndex = (currentImageIndex + 1) % sliderImages.length;
+    sliderImage.src = sliderImages[currentImageIndex];
+
+    // Fade in
+    sliderImage.style.opacity = 1;
+  }, 1000); // نفس زمن transition
+}
+
+// يغير الصورة كل 5 ثواني
+setInterval(changeImage, 5000);
+
     // Hide The Button
      const backToTopBtn = document.getElementById("backToTopBtn");
   window.addEventListener("scroll", () => {
@@ -154,3 +211,39 @@ renderPlans();
       behavior: "smooth"
     });
   });
+  document.addEventListener('DOMContentLoaded', () => {
+  // --- ضع هنا روابط الصور (استبدلها بروابطك المحلية أو مستضافة) ---
+const galleryImages = [
+  "https://images.unsplash.com/photo-1558611848-73f7eb4001a1?auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1593079831268-3381b0db4a77?auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1579758629938-03607ccdbaba?auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=800&q=6"
+];
+
+let galleryIndex = 0;
+const galleryImg = document.getElementById("galleryImage");
+
+function changeGalleryImage() {
+  galleryImg.src = galleryImages[galleryIndex];
+  galleryIndex = (galleryIndex + 1) % galleryImages.length;
+}
+changeGalleryImage();
+setInterval(changeGalleryImage, 5000);
+function changeImage() {
+  // Fade out
+  sliderImage.style.opacity = 0;
+
+  setTimeout(() => {
+    currentImageIndex = (currentImageIndex + 1) % sliderImages.length;
+    sliderImage.src = sliderImages[currentImageIndex];
+
+    // Fade in
+    sliderImage.style.opacity = 1;
+  }, 1000); // نفس زمن transition
+}
+
+// يغير الصورة كل 5 ثواني
+setInterval(changeImage, 5000);
+
+});

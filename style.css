@@ -3,6 +3,9 @@
   margin: 0;
   box-sizing: border-box;
 }
+a {
+  text-decoration: none;
+}
   #loadingScreen {
     position: fixed;
     top: 0;
@@ -36,10 +39,11 @@
     100% { transform: scale(1); opacity: 1; }
   }
 nav {
-    margin: 10px;
-    margin-top: 0;
+    /* margin: 10px;
+    margin-top: 0; */
     background-color: #878681;
     box-shadow: 2px 4px 20px 0.9 #000000;
+    backdrop-filter:blur (80px);
 }
 .navName:hover {
     color: #ffffff;
@@ -57,6 +61,51 @@ nav {
 .hero h1 {
 font-size: 2.8rem;
 font-weight: bold;
+}
+
+.hero {
+  height: 700px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* يخلي الفيديو يغطي الخلفية بالكامل */
+  z-index: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55); /* تغميق بسيط عشان النص يظهر بوضوح */
+  z-index: 1;
+}
+
+.hero-content {
+  z-index: 2;
+  position: relative;
+}
+
+.buutonHero {
+  background-color: #FFD700; /* الذهبي */
+  border-radius: 15px;
+  color: black;
+  font-weight: bold;
+  padding: 10px 25px;
+  transition: 0.3s ease;
+}
+.buutonHero:hover {
+  background-color: #b89600;
+  color: white;
+  transform: scale(1.05);
 }
 #trainerContainer {
   transition: opacity 0.5s ease;
@@ -76,6 +125,23 @@ button,
   border: none;
   transition: all 0.3s ease;
 }
+  .fade-in {
+    animation: fadeIn 0.5s ease-in-out forwards;
+  }
+
+  .fade-out {
+    animation: fadeOut 0.5s ease-in-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes fadeOut {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.95); }
+  }
 
 button:hover,
 .btn:hover {
@@ -99,17 +165,76 @@ div img {
 #transition:hover {
     transform: translateY(-10px);
 }
-.pricePlan {
-  color: #FFD700;
-}
 .plan-item {
-  display: none;
-  transition: all 0.4s ease;
+  min-height: 420px; /* الطول الأدنى */
+  max-height: 420px; /* الطول الأقصى لتثبيت الشكل */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #1a1a1a; /* لون Titanium أسود معدني */
+  color: #fff;
+  border: 2px solid #d4af37; /* ذهبي أنيق */
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.plan-item.active {
-  display: block;
+.btn-gold {
+  background-color: #FFD700;
+  color: #000;
+  border: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
+.btn-gold:hover {
+  transform: scale(1.05);
+}
+
+.plan-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+.pricePlan {
+  color: #d4af37; /* اللون الذهبي */
+  font-weight: bold;
+}
+#trainers {
+  background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+}
+
+.trainer-card {
+  max-width: 500px;
+  background-color: #111;
+  border: 2px solid #d4af37; /* Titanium gold border */
+  color: white;
+  transition: all 0.6s ease;
+  min-height: 400px;
+}
+
+.trainer-card img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #d4af37;
+  margin-bottom: 15px;
+}
+.trainer-card h4 {
+  color: #d4af37;
+}
+
+.trainer-card p {
+  margin: 5px 0;
+}
+.trainer-card.fade {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.center {
+  align-items: center;
+  justify-content: center;
+}
 .featuresText {
 color: #000000;
 font-size: 2.8rem;
